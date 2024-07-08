@@ -1,0 +1,58 @@
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+
+\allowdisplaybreaks
+
+\begin{document}
+\section{SFC Model}
+\begin{align}
+    D_H          & = {D_H}_{-1} + S_{-1} - S - C+ W + M - T +r_S S                                                          \\
+    D_{FC}       & = {D_{FC}}_{-1} - {L_{FC}}_{-1} + L_{FC} + C + G - p_K I - W_{FC} - \Pi_{FC} - r_L L_{FC}                \\
+    D_{FK}       & = {D_{FK}}_{-1} - {L_{FK}}_{-1} + L_{FK} + p_K I - W_{FK} - \Pi_{FK} - r_L L_{FK}                        \\
+    D            & = D_H + D_{FC} + D_{FK}                                                                                  \\
+    S            & = \max(0, {D_H}_{-1} + S_{-1} - \rho_C C)                                                                \\
+    L_{FC}       & = \max(0, W_{FC} - {D_{FC}}_{-1}, W_{FC} + p_K I - {D_{FC}}_{-1} - (C+G)) + (1-\gamma){L_{FC}}_{-1}      \\
+    L_{FK}       & = \max(0, W_{FK} - {D_{FK}}_{-1}) + (1-\gamma){L_{FK}}_{-1}                                              \\
+    L            & = L_{FC} + L_{FC}                                                                                        \\
+    B_B          & = (L_{-1} + {B_B}_{-1} - D_{-1} - S_{-1} - L + D + S + \Pi - r_S S + r_L L) / (1- r_B)                   \\
+    B_G          & = ({B_G}_{-1} + G + M - T) / (1 - r_B)                                                                   \\
+    B_G          & = B_B                                                                                                    \\
+    K_{FC}       & = (1-\gamma) {K_{FC}}_{-1} + I                                                                           \\
+    K_{FK}       & = (1-\gamma) {K_{FK}}_{-1} + \Delta K - I                                                                \\
+    C            & = \min(C^T, \min({K_{FC}}_{-1}, n_C) \beta k - G)                                                        \\
+    G            & = \min(G^T, \min({K_{FC}}_{-1}, n_C) \beta k)                                                            \\
+    I            & = \min(I^T, \max(0, (1-\gamma) {K_{FK}}_{-1} + {\Delta K} - (\gamma {K_{FK}}_{-1} + I^T_{-1}) / \beta))  \\
+    \Delta K     & = \min({\Delta K}^T, \min({K_{FK}}_{-1}, n_K) \beta)                                                     \\
+    C^T          & = \max(0, a_Y (W + M) + a_V ({D_H}_{-1} + S_{-1}))                                                       \\
+    G^T          & = \max(0, \delta Y) + T - M - r_{B} B_G                                                                  \\
+    I^T          & = \max(0, (C^T + G^T)/(\beta k p_C) - (1-\gamma){K_{FC}}_{-1})                                           \\
+    {\Delta K}^T & = \max(0, (\gamma {K_{FK}}_{-1} + I^T_{-1}) / (u^T \beta)) - (1-\gamma) {K_{FK}}_{-1}                    \\
+    W            & = W_{-1} \frac{1-\omega_{-1}}{1-\omega} a_W^{(\omega^T - \omega)}                                        \\
+    W_{FC}       & = W n_C / (1-\omega)                                                                                     \\
+    W_{FK}       & = W (n_K + n_Q) / (1-\omega)                                                                             \\
+    M            & = \phi W_{-1} \frac{\omega}{1-\omega_{-1}}                                                               \\
+    T            & = \tau_W W + \tau_C C + \tau_S r_S S                                                                     \\
+    \Pi_{FC}     & = \max(0, r_F (D_{FC} - L_{FC}))                                                                         \\
+    \Pi_{FK}     & = \max(0, r_F(D_{FK}- L_{FK}))                                                                           \\
+    \Pi          & = \Pi_{FC} + \Pi_{FK}                                                                                    \\
+    r_S          & = \max(0, r_B + \alpha_4 \max(0, \Gamma-\Gamma^T))                                                       \\
+    r_L          & = \max(0, r_B - \alpha_5 \max(0, \Gamma-\Gamma^T))                                                       \\
+    r_B          & = \max(0,\min(0.1, \psi + \alpha_1 (\psi - \psi^T) - \alpha_2 (\omega - \omega^T) + \alpha_3 (u - u^T))) \\
+    p_C          & = (1 + \mu_C) W / ((1-\omega) \beta k)                                                                   \\
+    p_K          & = (1+\mu_K) W_{FK} / I                                                                                   \\
+    \beta        & = \beta_{-1} (1+n_Q)^b                                                                                   \\
+    n_C^T        & = \min({K_{FC}}_{-1}, (C^T + G^T) / (p_C \beta k))                                                       \\
+    n_K^T        & = \min({K_{FK}}_{-1}, {\Delta K}^T / \beta)                                                              \\
+    n_C          & = n_C^T / max(1, n_C^T + n_K^T)                                                                          \\
+    n_K          & = n_K^T / max(1, n_C^T + n_K^T)                                                                          \\
+    n_Q          & = \min(1-(n_C+n_K), \max(0, \rho_Q (p_K I - W_{FK}) (1 - \omega) / W))                                   \\
+    Y            & = C + G + p_K I                                                                                          \\
+    \omega       & = 1 - (n_C + n_K + n_Q)                                                                                  \\
+    \psi         & = \frac{p_C}{{p_C}_{-1}} - 1                                                                             \\
+    g            & = \frac{Y}{Y_{-1}} - 1                                                                                   \\
+    u            & = (n_C + n_K) / (K_{FC} + K_{FK})                                                                        \\
+    \Gamma       & = (L_{-1} + {B_B}_{-1} - D_{-1} - S_{-1})/L_{-1}
+\end{align}
+\end{document}
